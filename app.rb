@@ -12,6 +12,9 @@ class MakersBnb < Sinatra::Base
     "Hello World!"
   end
 
+<<<<<<< HEAD
+
+=======
   get '/signup' do
     erb :signup, :layout => :layout
   end
@@ -47,6 +50,7 @@ class MakersBnb < Sinatra::Base
     session[:user_id] = nil
     redirect to '/login'
   end
+>>>>>>> master
 
   run! if app_file == $0
 end

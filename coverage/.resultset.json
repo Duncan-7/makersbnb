@@ -1,11 +1,20 @@
 {
   "RSpec": {
     "coverage": {
+<<<<<<< HEAD
+      "/Users/rhirhi/Projects/makersbnb/app.rb": {
+=======
       "/Users/duncanmorrison/projects/ruby/makersbnb/app.rb": {
+>>>>>>> master
         "lines": [
           1,
           1,
           1,
+<<<<<<< HEAD
+          null,
+          1,
+          1,
+=======
           1,
           null,
           1,
@@ -62,10 +71,13 @@
           1,
           1,
           null,
+>>>>>>> master
           1,
           1,
           null,
           1,
+<<<<<<< HEAD
+=======
           null
         ]
       },
@@ -79,10 +91,23 @@
           1,
           1,
           1,
+>>>>>>> master
           0,
           null,
           null,
           1,
+<<<<<<< HEAD
+          null
+        ]
+      },
+      "/Users/rhirhi/Projects/makersbnb/spec/spaces_spec.rb": {
+        "lines": [
+
+        ]
+      }
+    },
+    "timestamp": 1604940403
+=======
           1,
           1,
           1,
@@ -117,5 +142,6 @@
       }
     },
     "timestamp": 1604938913
+>>>>>>> master
   }
 }
