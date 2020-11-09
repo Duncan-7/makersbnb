@@ -13,6 +13,19 @@
 ```
 4. Run rake db:schema:load
 ```
+**How to set up a branch**
+```
+1. git branch my_branch (creates new branch)
+```
+```
+2. git checkout my_branch (changes into your branch)
+```
+```
+3. Git add ./git commit -m (add changes to your branch)
+```
+```
+4. Git push -u origin (pushes your branch to github)
+```
 
 **User Story 1:**
 ```
