@@ -1,0 +1,31 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/Users/rhirhi/Projects/makersbnb/app.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          null
+        ]
+      },
+      "/Users/rhirhi/Projects/makersbnb/spec/spaces_spec.rb": {
+        "lines": [
+
+        ]
+      }
+    },
+    "timestamp": 1604940403
+  }
+}
