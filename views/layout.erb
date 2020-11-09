@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Makers BnB</title>
+  <meta name="author" content="">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <% if session[:user_id] %>
+      <li><a href="/logout">Logout</a></li>
+    <% else %>
+      <li><a href="/login">Login</a></li>
+    <% end %>
+  </ul>
+  <div class="container">
+    <% flash.keys.each do |type| %>
+      <p data-alert class="<%= type %>">
+        <%= flash[type] %>
+      </p>
+    <% end %>
+
+    <%= yield %>
+  </div>
+</body>
+
+</html>
