@@ -18,7 +18,7 @@
 1. git branch my_branch (creates new branch)
 ```
 ```
-2. git checkout my_branch (changes into your branch)
+2. git checkout my_branch (change to the newly created branch)
 ```
 ```
 3. Git add ./git commit -m (add changes to your branch)
@@ -26,6 +26,15 @@
 ```
 4. Git push -u origin (pushes your branch to github)
 ```
+```
+5. On Github - to merge your branch do:
+-> compare & pull request
+-> add your pull request comment
+-> merge with master 
+
+6. Git pull - always pull newest merges into master and branch from it so you dont have any conflicts when trying to merge your branch
+
+7. Best Practice = > Your branch name should always reflect the exact work you're doing 
 
 **User Story 1:**
 ```
