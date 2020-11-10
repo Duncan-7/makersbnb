@@ -1,0 +1,23 @@
+<h3>My Trips:</h3>
+<% @my_trips.each do |trip| %>
+  <div class="booking-request">
+    <p>Name: <%= trip.space.name %></p>
+    <p>Description: <%= trip.space.description %></p>
+    <p>Price per night: £<%= trip.space.price %></p>
+    <p>For Date: <%= trip.date %></p>
+    <p>Owned by: <%= trip.space.user.username %></p>
+    <p>Contact: <%= trip.space.user.email %></p>
+  </div>
+<% end %>
+
+<h3>My Spaces:</h3>
+<% @my_spaces.each do |trip| %>
+  <div class="booking-request">
+    <p>Name: <%= trip.space.name %></p>
+    <p>Description: <%= trip.space.description %></p>
+    <p>Price per night: £<%= trip.space.price %></p>
+    <p>For Date: <%= trip.date %></p>
+    <p>Booked by: <%= trip.user.username %></p>
+    <p>Contact: <%= trip.user.email %></p>
+  </div>
+<% end %>
