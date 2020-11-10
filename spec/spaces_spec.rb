@@ -2,7 +2,7 @@ require 'space'
 
 describe Space do
 
-    before[:each] do
+    before [:each] do
         Space.create(name: 'test1', description: 'this is out first test', price: 10) #doesnt belong to us
         Space.create(name: 'test2', description: 'this is out second test', price: 20) #doesnt belong to us
         Space.create(name: 'test3', description: 'this is out third test', price: 30) #doesnt belong to us

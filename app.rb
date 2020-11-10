@@ -72,6 +72,21 @@ class MakersBnb < Sinatra::Base
     end
   end
 
+  get '/users/:id/delete' do
+    p params[:id]
+    p session[:user_id]
+    if params[:id].to_i == session[:user_id]
+      user = User.find(params[:id])
+      user.destroy
+      flash[:success] = "Account deleted"
+      redirect to '/signup'
+    else
+      flash[:error] = "Error occurred"
+      redirect to '/users/' + params[:id]
+    end
+  end
+
+
   get '/spaces/new' do
     erb :index
   end
