@@ -1,0 +1,15 @@
+<h3>User Profile</h3>
+
+<p>Username: <%= @user.username %>
+<p>Email: <%= @user.email %>
+
+<p><a href="/users/<%= @user.id %>/edit"><button>Edit Details</button></a></p>
+<p><a href="/users/<%= @user.id %>/delete" onclick="return confirm('Are you sure?')"><button>Delete Account</button></a></p>
+
+<p>User has <%= @user.spaces.count %> listed properties.</p>
+
+<% @user.spaces.each do |space| %>
+  <h4><%= space.name %></h4>
+  <p><%= space.description %></p>
+  <p>£<%= space.price%> per night</p>
+<% end %>

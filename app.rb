@@ -3,6 +3,7 @@ require 'sinatra/activerecord'
 require 'sinatra/flash'
 require './lib/user'
 require './lib/space'
+require './lib/reservation'
 
 
 class MakersBnb < Sinatra::Base
@@ -52,6 +53,41 @@ class MakersBnb < Sinatra::Base
     redirect to '/login'
   end
 
+  get '/users/:id' do
+    @user = User.find(params[:id])
+    erb :user_profile, :layout => :layout
+  end
+
+  get '/users/:id/edit' do
+    @user = User.find(params[:id])
+    erb :update_user, :layout => :layout
+  end
+
+  post '/users/:id' do
+    user = User.find(params[:id])
+    if user && user.id == session[:user_id] && user.authenticate(params[:password])
+      user.update(username: params[:username], email: params[:email])
+      flash[:success] = "Account updated"
+      redirect to "/users/#{params[:id]}"
+    else
+      flash[:error] = "Update failed"
+      redirect to "/users/#{params[:id]}/edit"
+    end
+  end
+
+  get '/users/:id/delete' do
+    if params[:id].to_i == session[:user_id]
+      user = User.find(params[:id])
+      user.destroy
+      flash[:success] = "Account deleted"
+      redirect to '/signup'
+    else
+      flash[:error] = "Error occurred"
+      redirect to '/users/' + params[:id]
+    end
+  end
+
+
   get '/spaces/new' do
     erb :create_space, :layout => :layout
   end
@@ -65,5 +101,17 @@ class MakersBnb < Sinatra::Base
       redirect to '/spaces/new'
     end
   end
+
+  # ONLY FOR TESTING UNTIL OTHER PAGES EXIST
+  get '/data_setup' do
+    user = User.create(username: 'Foo', email: "foo@example.com", password: "test")
+    user2 = User.create(username: 'Bar', email: "bar@example.com", password: "test")
+    Space.create(name: "Test Space", description: "A space for testing.", price: 10, user_id: user.id)
+  end
+
+  get '/test_reservation' do
+    reservation = Reservation.create(date: Date.new(2020, 11, 11), user_id: session[:user_id], space_id: 1, confirmed: false)
+  end
+  
   run! if app_file == $0
 end
