@@ -3,6 +3,7 @@ require 'sinatra/activerecord'
 require 'sinatra/flash'
 require './lib/user'
 require './lib/space'
+require './lib/reservation'
 
 
 class MakersBnb < Sinatra::Base
@@ -73,8 +74,6 @@ class MakersBnb < Sinatra::Base
   end
 
   get '/users/:id/delete' do
-    p params[:id]
-    p session[:user_id]
     if params[:id].to_i == session[:user_id]
       user = User.find(params[:id])
       user.destroy
@@ -100,5 +99,17 @@ class MakersBnb < Sinatra::Base
       redirect to '/spaces/new'
     end
   end
+
+  # ONLY FOR TESTING UNTIL OTHER PAGES EXIST
+  get '/data_setup' do
+    user = User.create(username: 'Foo', email: "foo@example.com", password: "test")
+    user2 = User.create(username: 'Bar', email: "bar@example.com", password: "test")
+    Space.create(name: "Test Space", description: "A space for testing.", price: 10, user_id: user.id)
+  end
+
+  get '/test_reservation' do
+    reservation = Reservation.create(date: Date.new(2020, 11, 11), user_id: session[:user_id], space_id: 1, confirmed: false)
+  end
+  
   run! if app_file == $0
 end
