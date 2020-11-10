@@ -13,6 +13,10 @@
 ```
 4. Run rake db:schema:load
 ```
+```
+5. Run application rackup or shotgun
+```
+```
 **How to set up a branch**
 ```
 1. git branch my_branch (creates new branch)
