@@ -116,6 +116,16 @@ class MakersBnb < Sinatra::Base
     erb :view_requests, :layout => :layout
   end
 
+  post '/reservations' do
+    reservation = Reservation.new(date: params[:date], user_id: session[:user_id], space_id: params[:space_id], confirmed: false)
+    if reservation.save
+      flash[:success] = "Request sent! The owner should respond shortly."
+    else
+      flash[:error] = "There was a problem sending your request."
+    end
+    redirect to "spaces/#{params[:space_id]}"
+  end
+
   post '/reservations/:id/edit' do
     reservation = Reservation.find(params[:id])
     if params[:decision] == 'accept'
