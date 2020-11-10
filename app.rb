@@ -3,6 +3,7 @@ require 'sinatra/activerecord'
 require 'sinatra/flash'
 require './lib/user'
 require './lib/space'
+require './lib/reservation'
 
 
 class MakersBnb < Sinatra::Base
@@ -73,8 +74,6 @@ class MakersBnb < Sinatra::Base
   end
 
   get '/users/:id/delete' do
-    p params[:id]
-    p session[:user_id]
     if params[:id].to_i == session[:user_id]
       user = User.find(params[:id])
       user.destroy
