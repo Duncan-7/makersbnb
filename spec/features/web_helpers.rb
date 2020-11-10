@@ -20,8 +20,11 @@ end
 def add_space
   visit '/spaces/new'
   fill_in :name, with: 'test space'
-  fill_in :description, with: 'this is a a space you would like to stay in'
+  fill_in :description, with: 'this is a space you would like to stay in'
   fill_in :price, with: '10'
   click_button 'add_space'
+end
 
+def sign_out
+  click_link 'Logout'
 end
