@@ -92,6 +92,12 @@ class MakersBnb < Sinatra::Base
     erb :create_space, :layout => :layout
   end
 
+  get '/spaces/:id' do
+    @space = Space.find(params[:id])
+    @availability = @space.check_availability
+    erb :space, :layout => :layout
+  end
+
   post '/add_space' do
     space = Space.new(name: params[:name], description: params[:description], price: params[:price], user_id: session[:user_id])
     if space.save
