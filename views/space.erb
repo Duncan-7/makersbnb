@@ -4,3 +4,15 @@
 <%= @space.description %>
 
 <h4>Price: £<%= @space.price %> per night</h4>
+
+<form action='/space/<%= @space.id %>/update' method ='get'>
+  <input type = 'submit' name = 'Update' value = 'Update' >
+</form>
+
+<form action='/space/<%= @space.id %>/delete' method ='POST'>
+  <input type = 'submit' name = 'Delete' value = 'Delete' >
+</form>
+
+<form action='/'>
+  <input type = 'submit' name = 'Back' value = 'Back' >
+</form>

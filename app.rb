@@ -127,6 +127,13 @@ class MakersBnb < Sinatra::Base
     redirect to '/reservation-requests'
   end
 
+  post '/space/:id/delete' do
+    space = Space.find(params[:id])
+    space.destroy
+    flash[:success] = 'Space deleted'
+    redirect '/'
+  end
+  
   # ONLY FOR TESTING UNTIL OTHER PAGES EXIST
   get '/data_setup' do
     user = User.create(username: 'Foo', email: "foo@example.com", password: "test")
