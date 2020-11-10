@@ -12,7 +12,6 @@ class MakersBnb < Sinatra::Base
   register Sinatra::Flash
 
   get '/' do
-    "Hello World!"
     @spaces = Space.all
     erb :homepage, :layout => :layout
   end
@@ -138,6 +137,6 @@ class MakersBnb < Sinatra::Base
   get '/test_reservation' do
     reservation = Reservation.create(date: Date.new(2020, 11, 11), user_id: session[:user_id], space_id: 1, confirmed: false)
   end
-  
+
   run! if app_file == $0
 end
