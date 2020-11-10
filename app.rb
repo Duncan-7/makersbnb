@@ -13,6 +13,8 @@ class MakersBnb < Sinatra::Base
 
   get '/' do
     "Hello World!"
+    @spaces = Space.all
+    erb :homepage, :layout => :layout
   end
 
   get '/signup' do
@@ -87,14 +89,14 @@ class MakersBnb < Sinatra::Base
 
 
   get '/spaces/new' do
-    erb :index
+    erb :create_space, :layout => :layout
   end
 
   post '/add_space' do
     space = Space.new(name: params[:name], description: params[:description], price: params[:price], user_id: session[:user_id])
     if space.save
       flash[:success] = "Space created"
-      redirect to '/login'
+      redirect to '/'
     else
       redirect to '/spaces/new'
     end

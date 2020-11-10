@@ -1,0 +1,17 @@
+<h1> Homepage </h1>
+<h2> Welcome to Markers BnB </h2>
+<h2> Spaces: </h2>
+<br>
+<ul-h>
+  <% @spaces.each do |space| %>
+    <li-h>
+      Name: <%= space.name %>
+      <br>
+      Description: <%= space.description %>
+      <br>
+      Price per night: £<%= space.price %>
+      <br>
+      <br>
+    </li-h>
+  <% end %>
+</ul-h>
