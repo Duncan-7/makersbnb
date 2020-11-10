@@ -26,8 +26,12 @@
 
 <p>Owned by: <%= @space.user.username %></p>
 <p>Contact: <%= @space.user.email %></p>
+<<<<<<< HEAD
   <% end %>
 <% end %>
+=======
+
+>>>>>>> 8eed2c04c54fb5f8c04116cce588060bd777ea58
 <% unless @space.user.id == session[:user_id] %>
   <h4>Make a booking request:</h4>
   <form action="/reservations" method="POST">
@@ -37,6 +41,10 @@
         <% unless day[:available] == :booked %>
           <option value=<%= day[:date] %>><%= day[:date] %></option>
         <% end %>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8eed2c04c54fb5f8c04116cce588060bd777ea58
       <% end %>
     </select>
     <input type="submit" value="Request">
