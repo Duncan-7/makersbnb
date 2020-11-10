@@ -102,6 +102,26 @@ class MakersBnb < Sinatra::Base
     end
   end
 
+  get '/reservation-requests' do
+    @requests = Reservation
+    .joins(:space)
+    .where(spaces: { user_id: session[:user_id]})
+    .where('confirmed = false')
+    erb :view_requests, :layout => :layout
+  end
+
+  post '/reservations/:id/edit' do
+    reservation = Reservation.find(params[:id])
+    if params[:decision] == 'accept'
+      reservation.update(confirmed: true)
+      flash[:success] = "Reservation accepted"
+    else
+      reservation.destroy
+      flash[:success] = "Reservation rejected"
+    end
+    redirect to '/reservation-requests'
+  end
+
   # ONLY FOR TESTING UNTIL OTHER PAGES EXIST
   get '/data_setup' do
     user = User.create(username: 'Foo', email: "foo@example.com", password: "test")
