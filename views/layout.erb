@@ -15,6 +15,7 @@
     <li><a href="/">Home</a></li>
     <% if session[:user_id] %>
       <li><a href="/logout">Logout</a></li>
+      <li><a href='spaces/new'>Add New Space</a></li>
     <% else %>
       <li><a href="/login">Login</a></li>
     <% end %>
