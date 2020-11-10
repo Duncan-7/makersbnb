@@ -1,0 +1,12 @@
+<h3>Update Profile</h3>
+
+<form action="/users/<%= @user.id %>" method="POST">
+  <label for="username">Username:</label>
+  <input type="text" name="username" value="<%= @user.username %>"><br><br>
+  <label for="email">Email:</label>
+  <input type="text" name="email" value="<%= @user.email %>"><br><br>
+  <label for="password">Password:</label>
+  <input type="password" name="password"><br><br>
+  <input type="submit" name="Update" />
+</form>
+  
