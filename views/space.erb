@@ -4,14 +4,37 @@
 <%= @space.description %>
 
 <h4>Price: £<%= @space.price %> per night</h4>
-
-<form action='/space/<%= @space.id %>/update' method ='get'>
-  <input type = 'submit' name = 'Update' value = 'Update' >
+<% if session[:user_id] = @space.user_id %>
+  Update:
+  <form action='/space/<%= @space.id %>/edit' method ='get'>
+    <input type = 'submit' name = 'Update' value = 'Update' >
+  </form>
+  Delete:
+  <form action='/space/<%= @space.id %>/delete' method ='get'>
+    <input type = 'submit' name = 'Delete' value = 'Delete' >
+  </form>
+<% end %>
+<h4>Make a booking request:</h4>
+<form action="/reservations" method="POST">
+  <input type="hidden" name="space_id" value=<%= @space.id %>>
+  <select name="date">
+    <% @availability.each do |day| %>
+      <% unless day[:available] == :booked %>
+        <option value=<%= day[:date] %>><%= day[:date] %></option>
+      <% end %>
+    <% end %>
+  </select>
+  <input type="submit" value="Request">
 </form>
 
-<form action='/space/<%= @space.id %>/delete' method ='POST'>
-  <input type = 'submit' name = 'Delete' value = 'Delete' >
-</form>
+<h4>November</h4>
+<div class="calendar">
+  <% @availability.each do |day| %>
+    <div class="calendar-day <%= day[:available] %>">
+      <span><%= day[:date].day %></span>
+    </div>
+  <% end %>
+</div>
 
 <form action='/'>
   <input type = 'submit' name = 'Back' value = 'Back' >

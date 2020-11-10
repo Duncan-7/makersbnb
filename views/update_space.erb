@@ -1,0 +1,18 @@
+<h1> Update Space: <%= @space.name %> </h1>
+  <form action='/space/<%= @space.id %>/edit' method ='POST' >
+    <label for='name' >Enter the name of the space:</label>
+      <input type='text' name='name' value='<%= @space.name %>'
+    <br>
+    <br>
+    <label for='description' >Enter a description of the space:</label>
+      <input type='text' name='description' style='height: 40px' value='<%= @space.description %>'>
+    <br>
+    <label for='price' >Enter the price per night of the space:</label>
+      <input type='number' name='price' value='<%= @space.price %>'>
+    <br>
+    <input type='submit' name='update_space' value='Update Space'>
+  </form>
+  <br>
+  <form action='/' >
+    <input type='submit' name='back' value='Back'>
+  </form>

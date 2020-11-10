@@ -86,7 +86,6 @@ class MakersBnb < Sinatra::Base
     end
   end
 
-
   get '/spaces/new' do
     erb :create_space, :layout => :layout
   end
@@ -95,6 +94,25 @@ class MakersBnb < Sinatra::Base
     @space = Space.find(params[:id])
     @availability = @space.check_availability
     erb :space, :layout => :layout
+  end
+
+  get '/space/:id/edit' do
+    @space = Space.find(params[:id])
+    erb :update_space, :layout => :layout
+  end
+
+  post '/space/:id/edit' do
+    # space = Space.update spaces (SET(name: params[:name], description: params[:description], price: params[:price], user_id: session[:user_id]) WHERE id = params[:id])
+    # space.save
+    # flash[:success] = "Space updated"
+    # redirect '/'
+  end
+
+  get '/space/:id/delete' do
+    space = Space.find(params[:id])
+    space.destroy
+    flash[:success] = 'Space deleted'
+    redirect '/'
   end
 
   post '/add_space' do
@@ -115,6 +133,16 @@ class MakersBnb < Sinatra::Base
     erb :view_requests, :layout => :layout
   end
 
+  post '/reservations' do
+    reservation = Reservation.new(date: params[:date], user_id: session[:user_id], space_id: params[:space_id], confirmed: false)
+    if reservation.save
+      flash[:success] = "Request sent! The owner should respond shortly."
+    else
+      flash[:error] = "There was a problem sending your request."
+    end
+    redirect to "spaces/#{params[:space_id]}"
+  end
+
   post '/reservations/:id/edit' do
     reservation = Reservation.find(params[:id])
     if params[:decision] == 'accept'
@@ -127,13 +155,7 @@ class MakersBnb < Sinatra::Base
     redirect to '/reservation-requests'
   end
 
-  post '/space/:id/delete' do
-    space = Space.find(params[:id])
-    space.destroy
-    flash[:success] = 'Space deleted'
-    redirect '/'
-  end
-  
+
   # ONLY FOR TESTING UNTIL OTHER PAGES EXIST
   get '/data_setup' do
     user = User.create(username: 'Foo', email: "foo@example.com", password: "test")

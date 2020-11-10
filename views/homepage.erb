@@ -5,6 +5,7 @@
 <ul-h>
   <% @spaces.each do |space| %>
     <li-h>
+      <a href="/spaces/<%= space.id %>">Details</a>
       Name: <%= space.name %>
       <br>
       Description: <%= space.description %>
@@ -12,7 +13,6 @@
       Price per night: £<%= space.price %>
       <br>
       <br>
-      <a href="/spaces/<%= space.id %>">Details</a>
     </li-h>
   <% end %>
 </ul-h>
