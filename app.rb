@@ -50,6 +50,28 @@ class MakersBnb < Sinatra::Base
     redirect to '/login'
   end
 
+  get '/users/:id' do
+    @user = User.find(params[:id])
+    erb :user_profile, :layout => :layout
+  end
+
+  get '/users/:id/edit' do
+    @user = User.find(params[:id])
+    erb :update_user, :layout => :layout
+  end
+
+  post '/users/:id' do
+    user = User.find(params[:id])
+    if user && user.id == session[:user_id] && user.authenticate(params[:password])
+      user.update(username: params[:username], email: params[:email])
+      flash[:success] = "Account updated"
+      redirect to "/users/#{params[:id]}"
+    else
+      flash[:error] = "Update failed"
+      redirect to "/users/#{params[:id]}/edit"
+    end
+  end
+
   get '/spaces/new' do
     erb :index
   end
