@@ -91,6 +91,12 @@ class MakersBnb < Sinatra::Base
     erb :create_space, :layout => :layout
   end
 
+  get '/spaces/:id' do
+    @space = Space.find(params[:id])
+    @availability = @space.check_availability
+    erb :space, :layout => :layout
+  end
+
   post '/add_space' do
     space = Space.new(name: params[:name], description: params[:description], price: params[:price], user_id: session[:user_id])
     if space.save
@@ -99,6 +105,26 @@ class MakersBnb < Sinatra::Base
     else
       redirect to '/spaces/new'
     end
+  end
+
+  get '/reservation-requests' do
+    @requests = Reservation
+    .joins(:space)
+    .where(spaces: { user_id: session[:user_id]})
+    .where('confirmed = false')
+    erb :view_requests, :layout => :layout
+  end
+
+  post '/reservations/:id/edit' do
+    reservation = Reservation.find(params[:id])
+    if params[:decision] == 'accept'
+      reservation.update(confirmed: true)
+      flash[:success] = "Reservation accepted"
+    else
+      reservation.destroy
+      flash[:success] = "Reservation rejected"
+    end
+    redirect to '/reservation-requests'
   end
 
   # ONLY FOR TESTING UNTIL OTHER PAGES EXIST

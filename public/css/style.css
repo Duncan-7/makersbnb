@@ -15,6 +15,12 @@ body {
   color: green;
 }
 
+.booking-request {
+  border: 1px solid black;
+  padding: 10px;
+  width: 400px;
+}
+
 ul {
   list-style-type: none;
   margin: 0;
