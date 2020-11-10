@@ -93,7 +93,7 @@ class MakersBnb < Sinatra::Base
 
   get '/spaces/:id' do
     @space = Space.find(params[:id])
-    @availability = @space.check_availability
+    @availability = @space.check_availability(@space.id)
     erb :space, :layout => :layout
   end
 
@@ -115,6 +115,15 @@ class MakersBnb < Sinatra::Base
     erb :view_requests, :layout => :layout
   end
 
+  get '/reservations' do
+    @my_spaces = Reservation
+    .joins(:space)
+    .where(spaces: { user_id: session[:user_id]})
+    @my_trips = Reservation.where(user_id: session[:user_id])
+    p @my_trips
+    erb :reservations, :layout => :layout
+  end
+
   post '/reservations' do
     reservation = Reservation.new(date: params[:date], user_id: session[:user_id], space_id: params[:space_id], confirmed: false)
     if reservation.save
@@ -129,6 +138,7 @@ class MakersBnb < Sinatra::Base
     reservation = Reservation.find(params[:id])
     if params[:decision] == 'accept'
       reservation.update(confirmed: true)
+      Reservation.where(date: reservation.date, confirmed: false).destroy_all
       flash[:success] = "Reservation accepted"
     else
       reservation.destroy
