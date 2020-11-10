@@ -12,7 +12,6 @@ class MakersBnb < Sinatra::Base
   register Sinatra::Flash
 
   get '/' do
-    "Hello World!"
     @spaces = Space.all
     erb :homepage, :layout => :layout
   end

@@ -16,7 +16,7 @@
     <% if session[:user_id] %>
     <li><a href="/users/<%= session[:user_id] %>">Profile</a></li>
       <li><a href="/logout">Logout</a></li>
-      <li><a href='spaces/new'>Add New Space</a></li>
+      <li><a href='/spaces/new'>Add New Space</a></li>
     <% else %>
       <li><a href="/login">Login</a></li>
     <% end %>
