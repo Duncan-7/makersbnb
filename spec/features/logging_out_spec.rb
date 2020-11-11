@@ -4,6 +4,7 @@ feature 'log_out' do
     login
     click_link 'Logout'
     expect(page).to have_content('Login')
+   # expect(User.user_id).to eq nil 
   end
 
   scenario 'user cannot log out if they havent logged in' do

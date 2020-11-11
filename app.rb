@@ -56,6 +56,10 @@ class MakersBnb < Sinatra::Base
     end
   end
 
+  get '/spaces' do
+    erb :spaces
+  end
+
   get '/logout' do
     session[:user_id] = nil
     redirect to '/login'
