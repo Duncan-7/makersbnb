@@ -4,6 +4,18 @@
 <%= @space.description %>
 
 <h4>Price: £<%= @space.price %> per night</h4>
+
+<% if session[:user_id] == @space.user_id %>
+  Update Space:
+  <form action='/space/<%= @space.id %>/edit' method ='get'>
+    <input type = 'submit' name = 'Update' value = 'Update' >
+  </form>
+  Delete Space:
+  <form action='/space/<%= @space.id %>/delete' method ='get'>
+    <input type = 'submit' name = 'Delete' value = 'Delete' >
+  </form>
+<% end %>
+
 <p>Owned by: <%= @space.user.username %></p>
 <p>Contact: <%= @space.user.email %></p>
 
@@ -30,3 +42,7 @@
     </div>
   <% end %>
 </div>
+
+<form action='/'>
+  <input type = 'submit' name = 'Back' value = 'Back' >
+</form>

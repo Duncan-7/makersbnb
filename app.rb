@@ -86,7 +86,6 @@ class MakersBnb < Sinatra::Base
     end
   end
 
-
   get '/spaces/new' do
     erb :create_space, :layout => :layout
   end
@@ -95,6 +94,28 @@ class MakersBnb < Sinatra::Base
     @space = Space.find(params[:id])
     @availability = @space.check_availability(@space.id)
     erb :space, :layout => :layout
+  end
+
+  get '/space/:id/edit' do
+    @space = Space.find(params[:id])
+    erb :update_space, :layout => :layout
+  end
+
+  post '/space/:id/edit' do
+    space_to_update = Space.find(params[:id])
+    space_to_update.name = params[:name]
+    space_to_update.price = params[:price]
+    space_to_update.description = params[:description]
+    space_to_update.save
+    flash[:success] = "Space updated"
+    redirect '/'
+  end
+
+  get '/space/:id/delete' do
+    space = Space.find(params[:id])
+    space.destroy
+    flash[:success] = 'Space deleted'
+    redirect '/'
   end
 
   post '/add_space' do
@@ -146,6 +167,7 @@ class MakersBnb < Sinatra::Base
     end
     redirect to '/reservation-requests'
   end
+
 
   # ONLY FOR TESTING UNTIL OTHER PAGES EXIST
   get '/data_setup' do
