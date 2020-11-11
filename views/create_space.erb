@@ -1,0 +1,17 @@
+<h1> Add a New Space </h1>
+<form method='post' action='/add_space'>
+  <label for='name' >Enter the name of the space:</label>
+    <input type='text' name='name'>
+  <br>
+  <label for='description' >Enter a description of the space:</label>
+    <input type='text' name='description' style='height: 40px'>
+  <br>
+  <label for='price' >Enter the price per night of the space:</label>
+    <input type='number' name='price' min="0">
+  <br>
+  <input type='submit' name='add_space' value='Add Space'>
+</form>
+<br>
+<form action='/' >
+  <input type='submit' name='back' value='Back'>
+</form>
