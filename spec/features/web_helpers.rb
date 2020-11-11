@@ -1,10 +1,23 @@
 def create_user
   User.create(username: 'Foo', email: 'foo@example.com', password: 'password')
 end
+
+def create_second_user
+  User.create(username: 'Two', email: 'two@example.com', password: 'password')
+end
+
 def login
   create_user
   visit '/login'
   fill_in :email, with: 'foo@example.com'
+  fill_in :password, with: 'password'
+  click_button 'Login'
+end
+
+def login_second_user
+  create_second_user
+  visit '/login'
+  fill_in :email, with: 'two@example.com'
   fill_in :password, with: 'password'
   click_button 'Login'
 end
