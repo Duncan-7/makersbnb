@@ -37,6 +37,7 @@
 <% end %>
 
 <h4><%= Date::MONTHNAMES[@date.month] %>, <%= @date.year %></h4>
+<a href='/spaces/<%= @space.id %>?month=<%= @date.month+1 %>&year=2020'>Next Month</a>
 <div class="calendar">
   <% @availability.each do |day| %>
     <div class="calendar-day <%= day[:available] %>">
