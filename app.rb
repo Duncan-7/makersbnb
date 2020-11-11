@@ -91,6 +91,7 @@ class MakersBnb < Sinatra::Base
   end
 
   get '/spaces/:id' do
+    @reservations = Reservation.where(user_id: session[:user_id], space_id: params[:id])
     @space = Space.find(params[:id])
     if params[:month].nil?  
       @date = Date.today
@@ -159,7 +160,7 @@ class MakersBnb < Sinatra::Base
     else
       flash[:error] = "There was a problem sending your request."
     end
-    redirect to "spaces/#{params[:space_id]}"
+    redirect to request.env["HTTP_REFERER"]
   end
 
   post '/reservations/:id/edit' do
