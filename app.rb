@@ -102,10 +102,13 @@ class MakersBnb < Sinatra::Base
   end
 
   post '/space/:id/edit' do
-    # space = Space.update spaces (SET(name: params[:name], description: params[:description], price: params[:price], user_id: session[:user_id]) WHERE id = params[:id])
-    # space.save
-    # flash[:success] = "Space updated"
-    # redirect '/'
+    space_to_update = Space.find(params[:id])
+    space_to_update.name = params[:name]
+    space_to_update.price = params[:price]
+    space_to_update.description = params[:description]
+    space_to_update.save
+    flash[:success] = "Space updated"
+    redirect '/'
   end
 
   get '/space/:id/delete' do

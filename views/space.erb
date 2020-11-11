@@ -5,33 +5,20 @@
 
 <h4>Price: £<%= @space.price %> per night</h4>
 
-<% if session[:user_id] = @space.user.id %>
-  Update:
+<% if session[:user_id] == @space.user_id %>
+  Update Space:
   <form action='/space/<%= @space.id %>/edit' method ='get'>
     <input type = 'submit' name = 'Update' value = 'Update' >
   </form>
-  Delete:
+  Delete Space:
   <form action='/space/<%= @space.id %>/delete' method ='get'>
     <input type = 'submit' name = 'Delete' value = 'Delete' >
   </form>
 <% end %>
 
-<h4>Make a booking request:</h4>
-<form action="/reservations" method="POST">
-  <input type="hidden" name="space_id" value=<%= @space.id %>>
-  <select name="date">
-    <% @availability.each do |day| %>
-      <% unless day[:available] == :booked %>
-        <option value=<%= day[:date] %>><%= day[:date] %></option>
-
 <p>Owned by: <%= @space.user.username %></p>
 <p>Contact: <%= @space.user.email %></p>
-<<<<<<< HEAD
-  <% end %>
-<% end %>
-=======
 
->>>>>>> 8eed2c04c54fb5f8c04116cce588060bd777ea58
 <% unless @space.user.id == session[:user_id] %>
   <h4>Make a booking request:</h4>
   <form action="/reservations" method="POST">
@@ -41,10 +28,6 @@
         <% unless day[:available] == :booked %>
           <option value=<%= day[:date] %>><%= day[:date] %></option>
         <% end %>
-<<<<<<< HEAD
-=======
-
->>>>>>> 8eed2c04c54fb5f8c04116cce588060bd777ea58
       <% end %>
     </select>
     <input type="submit" value="Request">
