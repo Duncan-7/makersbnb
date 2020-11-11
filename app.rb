@@ -86,7 +86,6 @@ class MakersBnb < Sinatra::Base
     end
   end
 
-
   get '/spaces/new' do
     erb :create_space, :layout => :layout
   end
@@ -103,6 +102,7 @@ class MakersBnb < Sinatra::Base
       flash[:success] = "Space created"
       redirect to '/'
     else
+      flash[:error] = "Problem creating space"
       redirect to '/spaces/new'
     end
   end
@@ -119,6 +119,7 @@ class MakersBnb < Sinatra::Base
     @my_spaces = Reservation
     .joins(:space)
     .where(spaces: { user_id: session[:user_id]})
+    .where('confirmed = true')
     @my_trips = Reservation.where(user_id: session[:user_id])
     p @my_trips
     erb :reservations, :layout => :layout

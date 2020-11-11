@@ -2,6 +2,13 @@ require 'sinatra/activerecord'
 
 class Space < ActiveRecord::Base
     belongs_to :user
+    has_many :reservations, dependent: :destroy
+
+    validates :name, presence: true, length: { maximum: 80 }
+    validates :description, length: { maximum: 500 }
+    validates :price, numericality: { only_integer: true, greater_than: 0 }
+    validates :user, presence: true
+
 
     def check_availability(id)
     day = 1
@@ -20,7 +27,6 @@ class Space < ActiveRecord::Base
       month << date_availability
       day += 1
     end
-      p month
       month
     end
 end
