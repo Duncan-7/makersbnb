@@ -7,7 +7,7 @@ def create_second_user
 end
 
 def login
-  create_user
+  @user = create_user
   visit '/login'
   fill_in :email, with: 'foo@example.com'
   fill_in :password, with: 'password'

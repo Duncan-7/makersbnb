@@ -27,7 +27,7 @@
     <input type="hidden" name="space_id" value=<%= @space.id %>>
     <select name="date">
       <% @availability.each do |day| %>
-        <% unless day[:available] == :booked %>
+        <% unless day[:available] == :booked || @reservations.select { |res| res.date == day[:date] }.length > 0 %>
           <option value=<%= day[:date] %>><%= day[:date] %></option>
         <% end %>
       <% end %>
@@ -36,7 +36,16 @@
   </form>
 <% end %>
 
-<h4>November</h4>
+<h4><%= Date::MONTHNAMES[@date.month] %>, <%= @date.year %></h4>
+<% if @date.month < 12 %>
+  <% next_month = @date.month + 1 %>
+  <% year = @date.year %>
+<% else %>
+  <% next_month = 1 %>
+  <% year = @date.year + 1 %>
+<% end %>
+<a href='/spaces/<%= @space.id %>?month=<%= next_month %>&year=<%= year %>'>Next Month</a>
+<br><br>
 <div class="calendar">
   <% @availability.each do |day| %>
     <div class="calendar-day <%= day[:available] %>">
