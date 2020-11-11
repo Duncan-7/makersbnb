@@ -5,6 +5,9 @@
 <ul-h>
   <% @spaces.each do |space| %>
     <li-h>
+    <% if session[:user_id] != nil %>
+      <a href="/spaces/<%= space.id %>">Details</a>
+    <% end %>
       Name: <%= space.name %>
       <br>
       Description: <%= space.description %>
@@ -13,5 +16,7 @@
       <br>
       <br>
     </li-h>
+    <br>
+    <br>
   <% end %>
 </ul-h>

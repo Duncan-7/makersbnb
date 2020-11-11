@@ -1,0 +1,22 @@
+<% @requests.each do |request| %>
+  <div class="booking-request">
+    Name: <%= request.space.name %>
+    <br>
+    Description: <%= request.space.description %>
+    <br>
+    Price per night: £<%= request.space.price %>
+    <br>
+    For Date: <%= request.date %>
+    <p>Booked by: <%= request.user.username %></p>
+    <p>Contact: <%= request.user.email %></p>
+    <form action="/reservations/<%= request.id %>/edit" method="POST">
+      <input type="hidden" name="decision" value="accept">
+      <input type="submit" value="Accept">
+    </form>
+    <form action="/reservations/<%= request.id %>/edit" method="POST">
+      <input type="hidden" name="decision" value="reject">
+      <input type="submit" value="Reject">
+    </form>
+  </div>
+
+<% end %>

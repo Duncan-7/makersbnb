@@ -15,8 +15,10 @@
     <li><a href="/">Home</a></li>
     <% if session[:user_id] %>
     <li><a href="/users/<%= session[:user_id] %>">Profile</a></li>
-      <li><a href="/logout">Logout</a></li>
       <li><a href='/spaces/new'>Add New Space</a></li>
+      <li><a href='/reservation-requests'>View Requests</a></li>
+      <li><a href='/reservations'>View Reservations</a></li>
+      <li><a href="/logout">Logout</a></li>
     <% else %>
       <li><a href="/login">Login</a></li>
     <% end %>

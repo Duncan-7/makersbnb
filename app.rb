@@ -86,9 +86,41 @@ class MakersBnb < Sinatra::Base
     end
   end
 
-
   get '/spaces/new' do
     erb :create_space, :layout => :layout
+  end
+
+  get '/spaces/:id' do
+    @space = Space.find(params[:id])
+    if params[:month].nil?  
+      @date = Date.today
+    else
+      @date = Date.new(params[:year].to_i, params[:month].to_i)
+    end
+    @availability = @space.check_availability(@date.month, @date.year)
+    erb :space, :layout => :layout
+  end
+
+  get '/space/:id/edit' do
+    @space = Space.find(params[:id])
+    erb :update_space, :layout => :layout
+  end
+
+  post '/space/:id/edit' do
+    space_to_update = Space.find(params[:id])
+    space_to_update.name = params[:name]
+    space_to_update.price = params[:price]
+    space_to_update.description = params[:description]
+    space_to_update.save
+    flash[:success] = "Space updated"
+    redirect '/'
+  end
+
+  get '/space/:id/delete' do
+    space = Space.find(params[:id])
+    space.destroy
+    flash[:success] = 'Space deleted'
+    redirect '/'
   end
 
   post '/add_space' do
@@ -97,9 +129,52 @@ class MakersBnb < Sinatra::Base
       flash[:success] = "Space created"
       redirect to '/'
     else
+      flash[:error] = "Problem creating space"
       redirect to '/spaces/new'
     end
   end
+
+  get '/reservation-requests' do
+    @requests = Reservation
+    .joins(:space)
+    .where(spaces: { user_id: session[:user_id]})
+    .where('confirmed = false')
+    erb :view_requests, :layout => :layout
+  end
+
+  get '/reservations' do
+    @my_spaces = Reservation
+    .joins(:space)
+    .where(spaces: { user_id: session[:user_id]})
+    .where('confirmed = true')
+    @my_trips = Reservation.where(user_id: session[:user_id])
+    p @my_trips
+    erb :reservations, :layout => :layout
+  end
+
+  post '/reservations' do
+    reservation = Reservation.new(date: params[:date], user_id: session[:user_id], space_id: params[:space_id], confirmed: false)
+    if reservation.save
+      flash[:success] = "Request sent! The owner should respond shortly."
+    else
+      flash[:error] = "There was a problem sending your request."
+    end
+    redirect to "spaces/#{params[:space_id]}"
+  end
+
+  post '/reservations/:id/edit' do
+    reservation = Reservation.find(params[:id])
+    if params[:decision] == 'accept'
+      reservation.update(confirmed: true)
+      Reservation.where(date: reservation.date, confirmed: false).destroy_all
+      flash[:success] = "Reservation accepted"
+    else
+      reservation.destroy
+      flash[:success] = "Reservation rejected"
+    end
+    redirect to '/reservation-requests'
+  end
+
 
   # ONLY FOR TESTING UNTIL OTHER PAGES EXIST
   get '/data_setup' do
@@ -111,6 +186,6 @@ class MakersBnb < Sinatra::Base
   get '/test_reservation' do
     reservation = Reservation.create(date: Date.new(2020, 11, 11), user_id: session[:user_id], space_id: 1, confirmed: false)
   end
-  
+
   run! if app_file == $0
 end
