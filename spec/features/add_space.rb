@@ -12,3 +12,5 @@ feature 'add_space' do
     expect(page).to have_content 'Homepage'
    end
 end
+
+#also include tests for in case not all fields were completed (failed add)
