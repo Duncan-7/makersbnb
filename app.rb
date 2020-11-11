@@ -17,10 +17,16 @@ class MakersBnb < Sinatra::Base
   end
 
   get '/signup' do
+    @attempted_username = session[:username]
+    @attempted_email = session[:email]
+    session[:username] = nil
+    session[:email] = nil
     erb :signup, :layout => :layout
   end
 
   get '/login' do
+    @attempted_email = session[:email]
+    session[:email] = nil
     erb :login, :layout => :layout
   end
 
@@ -31,6 +37,8 @@ class MakersBnb < Sinatra::Base
       flash[:success] = "Account created"
       redirect to '/'
     else
+      session[:username] = params[:username]
+      session[:email] = params[:email]
       flash[:error] = "Invalid details. Please try again."
       redirect to '/signup'
     end
@@ -42,6 +50,7 @@ class MakersBnb < Sinatra::Base
       session[:user_id] = user.id
       redirect to '/'
     else
+      session[:email] = params[:email]
       flash[:error] = "Invalid email or password"
       redirect to '/login'
     end
@@ -87,6 +96,12 @@ class MakersBnb < Sinatra::Base
   end
 
   get '/spaces/new' do
+    @attempted_name = session[:name]
+    @attempted_description = session[:description]
+    @attempted_price = session[:price]
+    session[:name] = nil
+    session[:description] = nil
+    session[:price] = nil
     erb :create_space, :layout => :layout
   end
 
@@ -130,6 +145,9 @@ class MakersBnb < Sinatra::Base
       flash[:success] = "Space created"
       redirect to '/'
     else
+      session[:name] = params[:name]
+      session[:description] = params[:description]
+      session[:price] = params[:price]
       flash[:error] = "Problem creating space"
       redirect to '/spaces/new'
     end
@@ -160,7 +178,7 @@ class MakersBnb < Sinatra::Base
     else
       flash[:error] = "There was a problem sending your request."
     end
-    redirect to request.env["HTTP_REFERER"]
+    redirect back
   end
 
   post '/reservations/:id/edit' do
