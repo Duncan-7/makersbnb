@@ -16,6 +16,10 @@
 ```
 5. Run application rackup or shotgun
 ```
+```
+6. Update table rake db:migrate
+```
+```
 
 **How to set up a branch**
 ```
