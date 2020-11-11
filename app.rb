@@ -17,10 +17,16 @@ class MakersBnb < Sinatra::Base
   end
 
   get '/signup' do
+    @attempted_username = session[:username]
+    @attempted_email = session[:email]
+    session[:username] = nil
+    session[:email] = nil
     erb :signup, :layout => :layout
   end
 
   get '/login' do
+    @attempted_email = session[:email]
+    session[:email] = nil
     erb :login, :layout => :layout
   end
 
@@ -31,6 +37,8 @@ class MakersBnb < Sinatra::Base
       flash[:success] = "Account created"
       redirect to '/'
     else
+      session[:username] = params[:username]
+      session[:email] = params[:email]
       flash[:error] = "Invalid details. Please try again."
       redirect to '/signup'
     end
@@ -42,6 +50,7 @@ class MakersBnb < Sinatra::Base
       session[:user_id] = user.id
       redirect to '/'
     else
+      session[:email] = params[:email]
       flash[:error] = "Invalid email or password"
       redirect to '/login'
     end
@@ -87,12 +96,24 @@ class MakersBnb < Sinatra::Base
   end
 
   get '/spaces/new' do
+    @attempted_name = session[:name]
+    @attempted_description = session[:description]
+    @attempted_price = session[:price]
+    session[:name] = nil
+    session[:description] = nil
+    session[:price] = nil
     erb :create_space, :layout => :layout
   end
 
   get '/spaces/:id' do
+    @reservations = Reservation.where(user_id: session[:user_id], space_id: params[:id])
     @space = Space.find(params[:id])
-    @availability = @space.check_availability(@space.id)
+    if params[:month].nil?  
+      @date = Date.today
+    else
+      @date = Date.new(params[:year].to_i, params[:month].to_i)
+    end
+    @availability = @space.check_availability(@date.month, @date.year)
     erb :space, :layout => :layout
   end
 
@@ -124,6 +145,10 @@ class MakersBnb < Sinatra::Base
       flash[:success] = "Space created"
       redirect to '/'
     else
+      session[:name] = params[:name]
+      session[:description] = params[:description]
+      session[:price] = params[:price]
+      flash[:error] = "Problem creating space"
       redirect to '/spaces/new'
     end
   end
@@ -140,6 +165,7 @@ class MakersBnb < Sinatra::Base
     @my_spaces = Reservation
     .joins(:space)
     .where(spaces: { user_id: session[:user_id]})
+    .where('confirmed = true')
     @my_trips = Reservation.where(user_id: session[:user_id])
     p @my_trips
     erb :reservations, :layout => :layout
@@ -152,7 +178,7 @@ class MakersBnb < Sinatra::Base
     else
       flash[:error] = "There was a problem sending your request."
     end
-    redirect to "spaces/#{params[:space_id]}"
+    redirect back
   end
 
   post '/reservations/:id/edit' do
