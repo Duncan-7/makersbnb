@@ -12,6 +12,7 @@ feature 'delete' do
     login
     add_space
     sign_out
+    login_second_user
     visit '/'
     click_link 'Details'
     expect(page).not_to have_content 'Delete'
@@ -21,7 +22,7 @@ feature 'delete' do
     login
     add_space
     click_link 'Details'
-    click_button 'Delete'
+    click_link 'Delete'
     expect(current_path).to eq '/'
     expect(page).not_to have_content 'this is a space you would like to stay in'
   end
