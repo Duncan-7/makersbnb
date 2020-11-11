@@ -22,7 +22,7 @@
   </form>
 <% end %>
 
-<h4>November</h4>
+<h4><%= Date::MONTHNAMES[@date.month] %>, <%= @date.year %></h4>
 <div class="calendar">
   <% @availability.each do |day| %>
     <div class="calendar-day <%= day[:available] %>">

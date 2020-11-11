@@ -92,7 +92,12 @@ class MakersBnb < Sinatra::Base
 
   get '/spaces/:id' do
     @space = Space.find(params[:id])
-    @availability = @space.check_availability(@space.id)
+    if params[:month].nil?  
+      @date = Date.today
+    else
+      @date = Date.new(params[:year].to_i, params[:month].to_i)
+    end
+    @availability = @space.check_availability(@date.month, @date.year)
     erb :space, :layout => :layout
   end
 
