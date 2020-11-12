@@ -1,7 +1,7 @@
 require_relative 'web_helpers'
 
 feature 'delete' do
-  scenario 'user can delete their own space' do
+  scenario 'user can see the delete button on their own space' do
     login
     add_space
     click_link 'Details'

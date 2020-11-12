@@ -19,4 +19,12 @@ feature 'login' do
     click_button 'signup'
     expect(page).to have_content 'Sign Up'
   end
+
+  scenario 'users are directed to spaces page' do
+    visit '/login'
+    click_link 'Home'
+    expect(current_path).to eq '/'
+    expect(page).to have_content 'Homepage'
+    expect(page).not_to have_content 'Details'
+  end
 end
