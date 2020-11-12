@@ -4,9 +4,12 @@ require 'sinatra/flash'
 require './lib/user'
 require './lib/space'
 require './lib/reservation'
+require 'pony'
+require './helpers'
 
 
 class MakersBnb < Sinatra::Base
+  helpers ApplicationHelper
   enable :sessions
   set :session_secret, "very secret"
   register Sinatra::Flash
@@ -35,6 +38,7 @@ class MakersBnb < Sinatra::Base
     if user.save
       session[:user_id] = user.id
       flash[:success] = "Account created"
+      send_mail(user.id, 'Welcome!', :mail_signup)
       redirect to '/'
     else
       session[:username] = params[:username]
@@ -206,8 +210,9 @@ class MakersBnb < Sinatra::Base
     Space.create(name: "Test Space", description: "A space for testing.", price: 10, user_id: user.id)
   end
 
-  get '/test_reservation' do
-    reservation = Reservation.create(date: Date.new(2020, 11, 11), user_id: session[:user_id], space_id: 1, confirmed: false)
+  get '/test_email' do
+    send_mail(1, 'test mail', :mail_signup)
+    # Pony.mail :from=>"admin@makersbnb.com", :to=> "duncanmorrison2001@yahoo.com", :subject=> "test subject", :body=> "testing"
   end
 
   run! if app_file == $0
