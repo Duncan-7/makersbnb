@@ -51,15 +51,23 @@ feature 'Spaces Details' do
   end
 
   scenario 'once a user has requested to stay in a space, the date no longer appears in the drop down for them' do
-    # sign_out
-    # login_second_user
-    # click_link 'Details'
-    # select_date
-    # expect(page).to have_select('date', '2020-11-13')
+    sign_out
+    login_second_user
+    click_link 'Details'
+    select_date
+    expect(page).not_to have_select('date', :with_options => [(Time.now).day+1])
   end
 
-  scenario 'once a user has requested to stay in a space, the date will appear in the drop down for other users' do
-    
+  scenario 'once a user has requested to stay in a space, the date will still appear in the drop down for other users' do
+    sign_out
+    login_second_user
+    click_link 'Details'
+    select_date
+    sign_out
+    login_third_user
+    click_link 'Details'
+    select ((Time.now).day+1).to_s, :from => "date"
+    expect(page).to have_select('date', :with_options => [(Time.now).day+1])
   end
 
   scenario 'once a user has requested to stay in a space, the date on the calendar should turn yellow' do
