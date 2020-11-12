@@ -6,6 +6,10 @@ def create_second_user
   User.create(username: 'Two', email: 'two@example.com', password: 'password')
 end
 
+def create_third_user
+  User.create(username: 'Three', email: 'three@example.com', password: 'password')
+end
+
 def login
   @user = create_user
   visit '/login'
@@ -18,6 +22,14 @@ def login_second_user
   create_second_user
   visit '/login'
   fill_in :email, with: 'two@example.com'
+  fill_in :password, with: 'password'
+  click_button 'Login'
+end
+
+def login_third_user
+  create_second_user
+  visit '/login'
+  fill_in :email, with: 'three@example.com'
   fill_in :password, with: 'password'
   click_button 'Login'
 end
@@ -36,6 +48,11 @@ def add_space
   fill_in :description, with: 'this is a space you would like to stay in'
   fill_in :price, with: '10'
   click_button 'add_space'
+end
+
+def select_date
+  select ((Time.now).day+1).to_s, :from => "date"
+  click_button 'Request'
 end
 
 def sign_out
