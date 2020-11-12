@@ -27,7 +27,7 @@ def login_second_user
 end
 
 def login_third_user
-  create_second_user
+  create_third_user
   visit '/login'
   fill_in :email, with: 'three@example.com'
   fill_in :password, with: 'password'
