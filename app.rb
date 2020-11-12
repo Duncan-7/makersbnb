@@ -15,7 +15,12 @@ class MakersBnb < Sinatra::Base
   register Sinatra::Flash
 
   get '/' do
-    @spaces = Space.all
+    if params[:search_date].nil?
+      @spaces = Space.all
+    else
+      @spaces = Space.all
+      @spaces = @spaces.select { |space| Reservation.find_by(space_id: space.id, date: params[:search_date], confirmed: true).nil? }
+    end
     erb :homepage, :layout => :layout
   end
 
@@ -181,7 +186,6 @@ class MakersBnb < Sinatra::Base
     .where(spaces: { user_id: session[:user_id]})
     .where('confirmed = true')
     @my_trips = Reservation.where(user_id: session[:user_id])
-    p @my_trips
     erb :reservations, :layout => :layout
   end
 
