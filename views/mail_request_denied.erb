@@ -1,0 +1,14 @@
+<h1>Reservation Rejected</h1>
+<p>Dear <%= @recipient.username %>,
+<p>We're sorry to have to tell you your booking for the following property has been rejected:</p>
+<p>Name: <%= @space.name %></p>
+<p>Price: £<%= @space.price %></p>
+<p>Description: <%= @space.description %></p>
+<p>Booking Date: <%= @reservation.date %></p>
+<p>Owner: <%= @space.user.username %>
+<p>Contact: <%= @space.user.email %>
+<p>Please browse our site to find an amazing alternative!</p>
+
+<br>
+<p>Regards,</p>
+<p>Team 6</p>

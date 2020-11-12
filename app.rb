@@ -131,9 +131,14 @@ class MakersBnb < Sinatra::Base
     space_to_update.name = params[:name]
     space_to_update.price = params[:price]
     space_to_update.description = params[:description]
-    space_to_update.save
-    flash[:success] = "Space updated"
-    redirect '/'
+    if space_to_update.save
+      flash[:success] = "Space updated"
+      send_mail(space_to_update.user.id, 'Space Updated', :mail_update_space, space_to_update.id)
+      redirect '/'
+    else
+      flash[:error] = "There was a problem updating this space"
+      redirect back
+    end
   end
 
   get '/space/:id/delete' do
@@ -147,6 +152,7 @@ class MakersBnb < Sinatra::Base
     space = Space.new(name: params[:name], description: params[:description], price: params[:price], user_id: session[:user_id])
     if space.save
       flash[:success] = "Space created"
+      send_mail(space.user.id, 'New Space Created', :mail_create_space, space.id)
       redirect to '/'
     else
       session[:name] = params[:name]
@@ -179,6 +185,8 @@ class MakersBnb < Sinatra::Base
     reservation = Reservation.new(date: params[:date], user_id: session[:user_id], space_id: params[:space_id], confirmed: false)
     if reservation.save
       flash[:success] = "Request sent! The owner should respond shortly."
+      send_mail(reservation.space.user.id, 'New Reservation Request', :mail_request_received, reservation.space.id, reservation.id)
+      send_mail(reservation.user.id, 'Reservation Requested', :mail_request_sent, reservation.space.id, reservation.id)
     else
       flash[:error] = "There was a problem sending your request."
     end
@@ -191,7 +199,10 @@ class MakersBnb < Sinatra::Base
       reservation.update(confirmed: true)
       Reservation.where(date: reservation.date, confirmed: false).destroy_all
       flash[:success] = "Reservation accepted"
+      send_mail(reservation.space.user.id, "Booking confirmed", :mail_confirm_request, reservation.space.id, reservation.id)
+      send_mail(reservation.user.id, "Booking confirmed", :mail_request_confirmed, reservation.space.id, reservation.id)
     else
+      send_mail(reservation.user.id, "Booking rejected", :mail_request_denied, reservation.space.id, reservation.id)
       reservation.destroy
       flash[:success] = "Reservation rejected"
     end
