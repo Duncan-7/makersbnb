@@ -1,0 +1,13 @@
+<h1>Reservation Request sent!</h1>
+<p>Dear <%= @recipient.username %>,
+<p>You've sent a request to book the following property:</p>
+<p>Name: <%= @space.name %></p>
+<p>Price: £<%= @space.price %></p>
+<p>Description: <%= @space.description %></p>
+<p>Requested Date: <%= @reservation.date %></p>
+<p>Owner: <%= @space.user.username %>
+<p>Contact: <%= @space.user.email %>
+
+<br>
+<p>Regards,</p>
+<p>Team 6</p>
