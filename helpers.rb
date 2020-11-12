@@ -6,13 +6,6 @@ module ApplicationHelper
     @reservation = Reservation.find_by_id(reservation_id)
     context = binding
     p "I'M SENDING AN EMAIL"
-    erb type
-    # p Pony.mail :headers => { 'Content-Type' => 'text/html' }, :from=>"admin@makersbnb.com", :to=> @recipient.email, :subject=> subject, :body=> erb(type, :layout => nil)
+    p Pony.mail :headers => { 'Content-Type' => 'text/html' }, :from=>"noreply@makersbnb.com", :to=> @recipient.email, :subject=> subject, :body=> erb(type, :layout => nil)
   end
 end
-
-# A user requests to book their space
-# They confirm a request
-# They request to book a space
-# Their request to book a space is confirmed
-# Their request to book a space is denied

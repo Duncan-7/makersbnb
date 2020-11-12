@@ -1,6 +1,7 @@
 <h3>My Trips:</h3>
+<%= "You have no trips booked." if @my_trips.empty? %>
 <% @my_trips.each do |trip| %>
-  <div class="booking-request">
+  <div class="booking-request <%= trip.confirmed ? "available" : "requested" %>">
     <p>Name: <%= trip.space.name %></p>
     <p>Description: <%= trip.space.description %></p>
     <p>Price per night: £<%= trip.space.price %></p>
@@ -11,6 +12,7 @@
 <% end %>
 
 <h3>My Spaces:</h3>
+<%= "You have no reservations." if @my_spaces.empty? %>
 <% @my_spaces.each do |trip| %>
   <div class="booking-request">
     <p>Name: <%= trip.space.name %></p>

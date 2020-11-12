@@ -6,7 +6,7 @@
 <p><a href="/users/<%= @user.id %>/edit"><button>Edit Details</button></a></p>
 <p><a href="/users/<%= @user.id %>/delete" onclick="return confirm('Are you sure?')"><button>Delete Account</button></a></p>
 
-<p>User has <%= @user.spaces.count %> listed properties.</p>
+<p>User has <%= @user.spaces.count %> listed <%= @user.spaces.count == 1 ? "property" : "properties"%>.</p>
 
 <% @user.spaces.each do |space| %>
   <h4><%= space.name %></h4>
