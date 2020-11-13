@@ -50,22 +50,6 @@ def add_space
   click_button 'add_space'
 end
 
-def add_second_space
-  visit '/spaces/new'
-  fill_in :name, with: 'second place'
-  fill_in :description, with: 'why not book this?'
-  fill_in :price, with: '25'
-  click_button 'add_space'
-end
-
-def add_incomplete_space
-  visit '/spaces/new'
-  fill_in :name, with: ''
-  fill_in :description, with: 'this is a space you would like to stay in'
-  fill_in :price, with: '10'
-  click_button 'add_space'
-end
-
 def select_date
   select ((Time.now).day+1).to_s, :from => "date"
   click_button 'Request'
