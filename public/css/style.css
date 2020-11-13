@@ -2,6 +2,11 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   box-sizing: border-box;
+  color: white;
+
+  background: url(https://images.unsplash.com/photo-1566195992011-5f6b21e539aa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80) no-repeat center center fixed;
+  background-size: cover;
+  
 }
 
 .container {
@@ -102,9 +107,4 @@ ul-h {
 
 li-h {
   
-}
-
-.homepage_image{
-  
-
 }

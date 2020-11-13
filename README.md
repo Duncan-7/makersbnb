@@ -85,3 +85,27 @@ As a user,
 So that I can what spaces I can book,
 I want to be able to see what spaces are available for the given date.
 ```
+**User Story 8:**
+```
+
+```
+**User Story 9:**
+```
+
+```
+**User Story 10:**
+```
+
+```
+**User Story 11:**
+```
+
+```
+**User Story 12:**
+```
+
+```
+**User Story 13:**
+```
+
+```
