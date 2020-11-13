@@ -31,12 +31,16 @@ body {
   width: 80px;
   height: 80px;
   display: inline-block;
-  margin: 0;
+  margin: 0 0 4px 0;
   padding: 10px;
 }
 
 .available {
   background-color:rgba(0,255,0,0.3);
+}
+
+.unavailable {
+  background-color:rgba(155, 163, 155, 0.651);
 }
 
 .requested {
@@ -45,6 +49,23 @@ body {
 
 .booked {
   background-color:rgba(255,0,0,0.3);
+}
+
+.arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 4px;
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
 }
 
 ul {
