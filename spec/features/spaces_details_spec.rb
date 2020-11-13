@@ -71,23 +71,72 @@ feature 'Spaces Details' do
   end
 
   scenario 'once a user has requested to stay in a space, the date on the calendar should turn yellow' do
-    
+    sign_out
+    login_second_user
+    click_link 'Details'
+    select_date
+    expect(page).to have_css '.requested'
   end
 
   scenario 'once a user request has been accepted, the date no longer appears in the drop down for anyone' do
-    
+    sign_out
+    login_second_user
+    click_link 'Details'
+    select_date
+    sign_out
+    login
+    click_link 'View Requests'
+    click_button 'Accept'
+    sign_out
+    login_third_user
+    click_link 'Details'
+    expect(page).not_to have_select('date', :with_options => [(Time.now).day+1])
   end
 
   scenario 'once a user request has been accepted, the date on the calendar should turn red' do
-    
+    sign_out
+    login_second_user
+    click_link 'Details'
+    select_date
+    sign_out
+    login
+    click_link 'View Requests'
+    click_button 'Accept'
+    sign_out
+    login_second_user
+    click_link 'Details'
+    expect(page).to have_css '.booked'
   end
 
   scenario 'once a user request has been rejected, the date will appear in the drop down for everyone' do
-    
+    sign_out
+    login_second_user
+    click_link 'Details'
+    select_date
+    sign_out
+    login
+    click_link 'View Requests'
+    click_button 'Reject'
+    sign_out
+    login_second_user
+    click_link 'Details'
+    expect(page).to have_select('date', :with_options => [(Time.now).day+1])
   end
 
   scenario 'once a request has been rejected, the date on the calendar should not be yellow' do
-    
+    sign_out
+    login_second_user
+    click_link 'Details'
+    select_date
+    sign_out
+    login
+    click_link 'View Requests'
+    click_button 'Reject'
+    sign_out
+    login_second_user
+    click_link 'Details'
+    expect(page).not_to have_css '.requested'
+    expect(page).not_to have_css '.booked'
   end
 
   scenario 'Clicking the back button takes them back to the homepage' do

@@ -42,6 +42,4 @@ feature 'View Requests' do
     expect(page).not_to have_content 'Booked by: Two'
   end
 
-
-
 end
