@@ -44,6 +44,13 @@ feature 'delete' do
     expect(page).to have_content 'Account deleted'
   end
 
+    scenario 'Once a user deletes their account, their spaces are also deleted' do
+      add_space
+      click_link 'Profile'
+      click_link 'Delete Account'
+      visit('/')
+      expect(page).not_to have_content('Details')
+    end
 end
 
 feature 'details' do
