@@ -57,4 +57,22 @@ feature 'View Reservations' do
     expect(page).not_to have_content 'test space'
   end
 
+  scenario 'If i have no reservations for trips, then i want to see a message telling me that' do
+    sign_out
+    login
+    click_link 'View Requests'
+    click_button 'Reject'
+    click_link 'View Reservations'
+    expect(page).to have_content 'You have no trips booked.'
+  end
+
+  scenario 'If i have no reservations for spaces, then i want to see a message telling me that' do
+    sign_out
+    login
+    click_link 'View Requests'
+    click_button 'Reject'
+    click_link 'View Reservations'
+    expect(page).to have_content 'You have no reservations.'
+  end
+
 end

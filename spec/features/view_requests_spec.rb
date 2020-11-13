@@ -31,6 +31,7 @@ feature 'View Requests' do
     click_button 'Accept'
     expect(page).to have_content 'Reservation accepted'
     expect(page).not_to have_content 'Booked by: Two'
+    expect(page).to have_content 'You have no pending requests'
   end
 
   scenario 'user can reject a request for their own space' do
@@ -40,6 +41,7 @@ feature 'View Requests' do
     click_button 'Reject'
     expect(page).to have_content 'Reservation rejected'
     expect(page).not_to have_content 'Booked by: Two'
+    expect(page).to have_content 'You have no pending requests'
   end
 
 end
