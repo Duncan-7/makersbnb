@@ -5,8 +5,8 @@ class Space < ActiveRecord::Base
   has_many :reservations, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 80 }
-  validates :description, length: { maximum: 500 }
-  validates :price, numericality: { only_integer: true, greater_than: 0 }
+  validates :description, presence:true, length: { maximum: 500 }
+  validates :price, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :user, presence: true
 
 
