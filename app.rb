@@ -227,18 +227,5 @@ class MakersBnb < Sinatra::Base
     redirect to '/reservation-requests'
   end
 
-
-  # ONLY FOR TESTING UNTIL OTHER PAGES EXIST
-  get '/data_setup' do
-    user = User.create(username: 'Foo', email: "foo@example.com", password: "test")
-    user2 = User.create(username: 'Bar', email: "bar@example.com", password: "test")
-    Space.create(name: "Test Space", description: "A space for testing.", price: 10, user_id: user.id)
-  end
-
-  get '/test_email' do
-    send_mail(1, 'test mail', :mail_signup)
-    # Pony.mail :from=>"admin@makersbnb.com", :to=> "duncanmorrison2001@yahoo.com", :subject=> "test subject", :body=> "testing"
-  end
-
   run! if app_file == $0
 end
