@@ -28,7 +28,7 @@
     <select name="date">
       <% @availability.each do |day| %>
         <% unless day[:available] == :booked || day[:date] < Date.today || @reservations.select { |res| res.date == day[:date] }.length > 0 %>
-          <option value=<%= day[:date] %>><%= day[:date] %></option>
+          <option value=<%= day[:date] %>><%= day[:date].to_formatted_s(:long) %></option>
         <% end %>
       <% end %>
     </select>
@@ -63,6 +63,7 @@
   <% @availability.each do |day| %>
     <div class="calendar-day <%= day[:date] < Date.today ? "unavailable" : day[:available] %>">
       <span><%= day[:date].day %></span>
+      <p><%= day[:date].strftime("%A") %></p>
     </div>
   <% end %>
 </div>

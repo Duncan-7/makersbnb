@@ -14,9 +14,10 @@ class Space < ActiveRecord::Base
   day = 1
   results = []
   days_in_month = [nil, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+  reservations = Reservation.where(space_id: self.id)
   while day <= days_in_month[month] do
     date = Date.new(year, month, day)
-    availability = Reservation.find_by(date: date, space_id: self.id)
+    availability = reservations.select { |reservation| reservation.date == date }.first
     if availability.nil?
       availability = :available
     elsif availability.confirmed == false
