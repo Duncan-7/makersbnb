@@ -9,8 +9,11 @@
 <p>User has <%= @user.spaces.count %> listed <%= @user.spaces.count == 1 ? "property" : "properties"%>.</p>
 
 <% @user.spaces.each do |space| %>
-  <h4><%= space.name %></h4>
-  <p><%= space.description %></p>
-  <p>£<%= space.price%> per night</p>
-  <a href="/spaces/<%= space.id %>">Details</a>
+  <div class="space-listing">
+    <h4><%= space.name %></h4>
+    <p><%= space.description %></p>
+    <p>£<%= space.price%> per night</p>
+    <a href="/spaces/<%= space.id %>">Details</a>
+    <br><br>
+  </div>
 <% end %>

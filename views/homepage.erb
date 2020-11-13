@@ -6,22 +6,20 @@
   <input type="submit" name = "Search" value="Search" >
 </form>
 <h2> Spaces: </h2>
-<br>
-<ul-h>
-  <% @spaces.each do |space| %>
-    <li-h>
+<% @spaces.each do |space| %>
+  <div class="space-listing" >
+    <h4><%= space.name %></h4>
+    <br>
+    Description: <%= space.description %>
+    <br>
+    Price per night: £<%= space.price %>
+    <br><br>
     <% if session[:user_id] != nil %>
       <a href="/spaces/<%= space.id %>">Details</a>
     <% end %>
-      Name: <%= space.name %>
-      <br>
-      Description: <%= space.description %>
-      <br>
-      Price per night: £<%= space.price %>
-      <br>
-      <br>
-    </li-h>
     <br>
     <br>
-  <% end %>
-</ul-h>
+  </div>
+  
+  <br>
+<% end %>

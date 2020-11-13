@@ -4,13 +4,31 @@ body {
   box-sizing: border-box;
   color: white;
 
-  background: url(https://images.unsplash.com/photo-1566195992011-5f6b21e539aa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80) no-repeat center center fixed;
+  background: url('/images/homepage.jpeg') no-repeat center center fixed;
   background-size: cover;
   
 }
 
 .container {
+  background-color: #697268;
+  width: 350px;
+  border-right: 1px solid darkslategrey;
   padding: 10px;
+  height: 100%;
+  min-height: 93vh;
+}
+
+.calendar-container {
+  background-color: #697268;
+  width: 770px;
+  border-right: 1px solid darkslategrey;
+  margin-top: -10px;
+  margin-bottom: -10px;
+  padding-bottom: 10px;
+}
+
+.space-listing {
+  border-bottom: 1px solid black;
 }
 
 .error {
@@ -22,9 +40,9 @@ body {
 }
 
 .booking-request {
-  border: 1px solid black;
+  border-bottom: 1px solid black;
   padding: 10px;
-  width: 400px;
+  width: 330px;
 }
 
 .calendar {
@@ -98,7 +116,12 @@ li a:hover {
   background-color: #111;
 }
 
-ul-h {
+a {
+  text-decoration: none;
+  color: #B7D1DA;
+}
+
+/* ul-h {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -107,4 +130,4 @@ ul-h {
 
 li-h {
   
-}
+} */
