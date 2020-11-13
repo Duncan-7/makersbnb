@@ -50,6 +50,14 @@ def add_space
   click_button 'add_space'
 end
 
+def add_second_space
+  visit '/spaces/new'
+  fill_in :name, with: 'second place'
+  fill_in :description, with: 'why not book this?'
+  fill_in :price, with: '25'
+  click_button 'add_space'
+end
+
 def add_incomplete_space
   visit '/spaces/new'
   fill_in :name, with: ''
@@ -75,6 +83,12 @@ def incomplete_update_space
   fill_in :description, with: 'some may say that this has changed. They are correct'
   fill_in :price, with: ''
   click_button 'update_space'
+end
+
+def space_search
+  visit '/'
+  fill_in :search_date, with: '14/11/2020'
+  click_button 'Search'
 end
 
 def sign_out

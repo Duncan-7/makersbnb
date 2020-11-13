@@ -37,9 +37,17 @@ feature 'Spaces Details' do
     expect(page).to have_content((Time.now).year)
   end
 
-  scenario 'Expect the next month/year to be shown when clicking on the next month' do
-    click_link 'Next Month'
+  scenario 'Expect the next month/year to be shown when clicking on the arrow' do
+    find(:css, '.arrow.right').click
     expect(page).to have_content((Time.now).month+1)
+  end
+
+  scenario 'You can select a date with the drop downs' do
+    select ('October'), :from => "month"
+    select ((Time.now).year+1).to_s, :from => "year"
+    click_button 'Go'
+    expect(page).to have_content('October')
+    expect(page).to have_content((Time.now).year+1)
   end
 
   scenario 'user can select a date from the drop down and it will confirm that a request has been made' do
@@ -139,6 +147,25 @@ feature 'Spaces Details' do
     expect(page).not_to have_css '.booked'
   end
 
+  scenario 'a user cannot select a date in the past' do
+    sign_out
+    login_second_user
+    click_link 'Details'
+    expect(page).not_to have_select('date', :with_options => [(Time.now).day-1])
+  end
+
+  scenario 'dates in the past will be greyed out' do
+    find(:css, '.arrow.left').click
+    expect(page).to have_css '.unavailable'
+  end
+
+  scenario 'dates in the future will not be greyed out' do
+    select ('October'), :from => "month"
+    select ((Time.now).year+1).to_s, :from => "year"
+    click_button 'Go'
+    expect(page).not_to have_css '.unavailable'
+  end
+  
   scenario 'Clicking the back button takes them back to the homepage' do
     click_button 'Back'
     expect(current_path).to eq '/'
