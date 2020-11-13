@@ -83,29 +83,77 @@ I want to be able to delete my spaces.
 ```
 As a user,
 So that I can what spaces I can book,
-I want to be able to see what spaces are available for the given date.
+I want to be able to see what dates are available for the given space.
 ```
 **User Story 8:**
 ```
-
+As a user, 
+So that I can book a space,
+I want to be able to select a date from a drop down to send a request.
 ```
 **User Story 9:**
 ```
-
+As a user, 
+So that I can confirm a booking, 
+I want to be able to accept a request for a space.
 ```
 **User Story 10:**
 ```
-
+As a user, 
+So that I can deny a booking, 
+I want to be able to reject a request for a space.
 ```
 **User Story 11:**
 ```
-
+As a user, 
+So that I can deny a booking, 
+I want to be able to reject a request for a space.
 ```
 **User Story 12:**
 ```
-
+As a user, 
+So that no one else can book a space the same day as me, 
+I want the date on the space to be unavailable when it has been confirmed.
 ```
 **User Story 13:**
 ```
-
+As a user, 
+So that offers can be made for a non-confirmed space, 
+I only want the date to be unavailable if it has been accepted. 
+```
+**User Story 14:**
+```
+As a user, 
+So that I can see the who has booked my spaces, 
+I want to be able to see the reservations that have been made.
+```
+**User Story 15:**
+```
+As a user, 
+So that I can see the spaces that I have booked, 
+I want to be able to see the reservations that I have made.
+```
+**User Story 16:**
+```
+As a user, 
+So that I can see the spaces available for a given date, 
+I want to be able to search the spaces by date.
+```
+**User Story 17:**
+```
+As a user, 
+In case any of my information changes, 
+I want to be able to update my account. 
+```
+**User Story 18:**
+```
+As a user, 
+In case I decide I no longer want my account, 
+I want to be able to delete my account. 
+```
+**User Story 19:**
+```
+As a user, 
+So that I can stop my active session, 
+I want to be able to sign-out of my account. 
 ```
