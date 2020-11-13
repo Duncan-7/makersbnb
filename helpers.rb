@@ -5,8 +5,16 @@ module ApplicationHelper
     @space = Space.find_by_id(space_id)
     @reservation = Reservation.find_by_id(reservation_id)
     context = binding
-    p "I'M SENDING AN EMAIL"
+    # p "I'M SENDING AN EMAIL"
     # p Pony.mail :headers => { 'Content-Type' => 'text/html' }, :from=>"noreply@makersbnb.com", :to=> @recipient.email, :subject=> subject, :body=> erb(type, :layout => nil)
+  end
+
+  def check_login
+    redirect to '/login' unless logged_in?
+  end
+
+  def logged_in?
+    session[:user_id] != nil
   end
 
   def next_month(date)

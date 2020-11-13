@@ -65,26 +65,25 @@ class MakersBnb < Sinatra::Base
     end
   end
 
-  get '/spaces' do
-    erb :spaces
-  end
-
   get '/logout' do
     session[:user_id] = nil
     redirect to '/login'
   end
 
   get '/users/:id' do
+    check_login
     @user = User.find(params[:id])
     erb :user_profile, :layout => :layout
   end
 
   get '/users/:id/edit' do
+    check_login
     @user = User.find(params[:id])
     erb :update_user, :layout => :layout
   end
 
   post '/users/:id' do
+    check_login
     user = User.find(params[:id])
     if user && user.id == session[:user_id] && user.authenticate(params[:password])
       user.update(username: params[:username], email: params[:email])
@@ -97,6 +96,7 @@ class MakersBnb < Sinatra::Base
   end
 
   get '/users/:id/delete' do
+    check_login
     if params[:id].to_i == session[:user_id]
       user = User.find(params[:id])
       user.destroy
@@ -109,6 +109,7 @@ class MakersBnb < Sinatra::Base
   end
 
   get '/spaces/new' do
+    check_login
     @attempted_name = session[:name]
     @attempted_description = session[:description]
     @attempted_price = session[:price]
@@ -119,6 +120,7 @@ class MakersBnb < Sinatra::Base
   end
 
   get '/spaces/:id' do
+    check_login
     @reservations = Reservation.where(user_id: session[:user_id], space_id: params[:id])
     @space = Space.find(params[:id])
     if params[:month].nil?  
@@ -131,11 +133,13 @@ class MakersBnb < Sinatra::Base
   end
 
   get '/space/:id/edit' do
+    check_login
     @space = Space.find(params[:id])
     erb :update_space, :layout => :layout
   end
 
   post '/space/:id/edit' do
+    check_login
     space_to_update = Space.find(params[:id])
     space_to_update.name = params[:name]
     space_to_update.price = params[:price]
@@ -151,6 +155,7 @@ class MakersBnb < Sinatra::Base
   end
 
   get '/space/:id/delete' do
+    check_login
     space = Space.find(params[:id])
     space.destroy
     flash[:success] = 'Space deleted'
@@ -158,6 +163,7 @@ class MakersBnb < Sinatra::Base
   end
 
   post '/add_space' do
+    check_login
     space = Space.new(name: params[:name], description: params[:description], price: params[:price], user_id: session[:user_id])
     if space.save
       flash[:success] = "Space created"
@@ -173,6 +179,7 @@ class MakersBnb < Sinatra::Base
   end
 
   get '/reservation-requests' do
+    check_login
     @requests = Reservation
     .joins(:space)
     .where(spaces: { user_id: session[:user_id]})
@@ -181,6 +188,7 @@ class MakersBnb < Sinatra::Base
   end
 
   get '/reservations' do
+    check_login
     @my_spaces = Reservation
     .joins(:space)
     .where(spaces: { user_id: session[:user_id]})
@@ -190,6 +198,7 @@ class MakersBnb < Sinatra::Base
   end
 
   post '/reservations' do
+    check_login
     reservation = Reservation.new(date: params[:date], user_id: session[:user_id], space_id: params[:space_id], confirmed: false)
     if reservation.save
       flash[:success] = "Request sent! The owner should respond shortly."
@@ -202,6 +211,7 @@ class MakersBnb < Sinatra::Base
   end
 
   post '/reservations/:id/edit' do
+    check_login
     reservation = Reservation.find(params[:id])
     if params[:decision] == 'accept'
       reservation.update(confirmed: true)
