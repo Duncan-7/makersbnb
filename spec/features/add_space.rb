@@ -19,7 +19,11 @@ feature 'add_space' do
    end
 
    scenario 'if the user doesnt fill in all of the fields, the space isnt added and the user is redirected back to the add page' do               
-    add_incomplete_space
+    visit '/spaces/new'
+    fill_in :name, with: ''
+    fill_in :description, with: 'this is a space you would like to stay in'
+    fill_in :price, with: '10'
+    click_button 'add_space'
     expect(current_path).to eq '/spaces/new'
     expect(page).to have_content 'Problem creating space'
     expect(page).to have_field('name', with: '') 
